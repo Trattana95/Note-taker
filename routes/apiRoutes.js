@@ -28,9 +28,9 @@ module.exports = function(app) {
   });
 
   app.delete("/api/notes/:id", function(req, res) {
-    let noteid = req.params.id;
-    let newID = 0;
+    let id = req.params.id;
 
+    let atID = (element) => element.id === id;
     let deleteNote = savedNote.findIndex(atID);
 
     savedNote.splice(deleteNote, 1);
