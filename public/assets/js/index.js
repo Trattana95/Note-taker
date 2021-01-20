@@ -64,15 +64,12 @@ const handleNoteSave = function () {
 
 // Delete the clicked note
 const handleNoteDelete = function (event) {
-  // prevents the click listener for the list from being called when the button inside of it is clicked
+// prevents the click listener for the list from being called when the button inside of it is clicked
   event.stopPropagation();
-
   const note = $(this).parent(".list-group-item").data();
-
   if (activeNote.id === note.id) {
     activeNote = {};
   }
-
   deleteNote(note.id).then(() => {
     getAndRenderNotes();
     renderActiveNote();
@@ -113,7 +110,6 @@ const renderNoteList = (notes) => {
     const $li = $("<li class='list-group-item'>");
     const $span = $("<span>").text(text);
     $li.append($span);
-
     if (withDeleteButton) {
       const $delBtn = $(
         "<i class='fas fa-trash-alt float-right text-danger delete-note'>"
@@ -121,17 +117,15 @@ const renderNoteList = (notes) => {
       $li.append($delBtn);
     }
     return $li;
-  };
-
+  }; 
+  
   if (notes.length === 0) {
     noteListItems.push(create$li("No saved Notes", false));
   }
-
   notes.forEach((note) => {
     const $li = create$li(note.title).data(note);
     noteListItems.push($li);
   });
-
   $noteList.append(noteListItems);
 };
 
@@ -139,6 +133,7 @@ const renderNoteList = (notes) => {
 const getAndRenderNotes = () => {
   return getNotes().then(renderNoteList);
 };
+
 
 $saveNoteBtn.on("click", handleNoteSave);
 $noteList.on("click", ".list-group-item", handleNoteView);
